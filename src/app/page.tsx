@@ -27,8 +27,7 @@ export default function Home() {
             </span>
           </h2>
           <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Baza wszystkich 280 pytań. Poprawna odpowiedź wyświetla się po
-            zaznaczeniu.
+            Baza wszystkich 280 pytań. Zaznacz i sprawdź poprawną odpowiedź.
           </p>
         </a>
 

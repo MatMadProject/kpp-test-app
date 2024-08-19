@@ -4,8 +4,10 @@ interface QuestionLabelProps {
 
 export default function QuestionLabel({ value }: QuestionLabelProps) {
   return (
-    <div className="w-1/2 min-h-40 text-center p-4 rounded-lg border border-neutral-700 bg-neutral-800/30">
+    <div className="w-3/5 h-40 text-m text-center p-2 rounded-lg border border-neutral-700 bg-neutral-800/30">
       <p>{value}</p>
     </div>
   );
 }
+
+//23, 43, 96, 191
