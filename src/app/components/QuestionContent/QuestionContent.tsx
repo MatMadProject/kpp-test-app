@@ -1,7 +1,6 @@
 import { Question } from "@/utils/interfaces";
 import QuestionLabel from "../QuestionLabel";
 import AnswerLabel from "../AnswerLabel";
-import { useState } from "react";
 
 interface QuestionContentProps {
   question: Question;

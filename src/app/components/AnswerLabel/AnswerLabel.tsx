@@ -24,7 +24,7 @@ export default function AnswerLabel({
   return (
     <div
       onClick={handleClick}
-      className={`h-16 w-3/5 text-sm text-center p-2 rounded-lg border border-neutral-700 hover:opacity-100 
+      className={`flex items-center h-16 w-3/5 text-sm p-2 rounded-lg border border-neutral-700 hover:opacity-100 
         ${
           isDisplayCorrectAnswer &&
           correctAnswerId === answerId &&
