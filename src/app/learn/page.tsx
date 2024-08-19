@@ -7,6 +7,7 @@ import { Question } from "@/utils/interfaces";
 
 export default function Page() {
   const [questionId, setQuestionId] = useState(1);
+  const [selectedAnswer, setSelectedAnswer] = useState(0);
   const [question, setQuestion] = useState<Question>(Questions[questionId - 1]);
 
   const handleNextQuestion = () => {
@@ -23,10 +24,18 @@ export default function Page() {
 
   useEffect(() => {
     setQuestion(Questions[questionId - 1]);
+    handleSelectedAnswer(0);
   });
+  const handleSelectedAnswer = (answerId: number) => {
+    setSelectedAnswer(answerId);
+  };
   return (
     <div className="flex flex-col gap-4  items-center p-4">
-      <QuestionContent question={question} />
+      <QuestionContent
+        question={question}
+        selectedAnswerId={selectedAnswer}
+        selectAnswer={handleSelectedAnswer}
+      />
       <div className="flex justify-between w-3/5">
         <NavigationButton
           onClick={handlePreviousQuestion}

@@ -9,5 +9,3 @@ export default function QuestionLabel({ value }: QuestionLabelProps) {
     </div>
   );
 }
-
-//23, 43, 96, 191
