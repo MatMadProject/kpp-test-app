@@ -6,6 +6,8 @@ interface AnswerLabelProps {
   isAnswerSelected?: boolean;
   selectedAnswerId: number;
   selectAnswer: (id: number) => void;
+  isDisplayCorrectAnswer: boolean;
+  correctAnswerId: number;
 }
 
 export default function AnswerLabel({
@@ -13,22 +15,27 @@ export default function AnswerLabel({
   answerId,
   selectedAnswerId,
   selectAnswer,
+  isDisplayCorrectAnswer,
+  correctAnswerId,
 }: AnswerLabelProps) {
-  const [isSelected, setIsSelected] = useState(false);
-
   const handleClick = () => {
     selectAnswer(answerId);
-    setIsSelected(!isSelected);
   };
   return (
     <div
       onClick={handleClick}
       className={`h-16 w-3/5 text-sm text-center p-2 rounded-lg border border-neutral-700 hover:opacity-100 
         ${
-          selectedAnswerId === answerId
-            ? "bg-sky-300/60 opacity-100"
+          isDisplayCorrectAnswer &&
+          correctAnswerId === answerId &&
+          "transition delay-300 duration-700 bg-green-500 opacity-100"
+        }
+        ${
+          selectedAnswerId === answerId && correctAnswerId !== answerId
+            ? "bg-red-500 opacity-100"
             : "bg-neutral-800/30 opacity-50"
-        }`}
+        }
+        `}
     >
       {asnwerValue}
     </div>
