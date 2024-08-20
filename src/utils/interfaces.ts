@@ -9,3 +9,10 @@ export interface Question{
     correctAnswer: string
     image?: string
 }
+
+export interface TestQuestion{
+    id: string
+    question: Question
+    selectedAnswer: string | "0"
+    score: number | "0"
+}
