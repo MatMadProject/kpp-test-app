@@ -1,12 +1,12 @@
-import { Question, TestQuestion } from "@/utils/interfaces";
+import { Question } from "@/utils/interfaces";
 import QuestionLabel from "../QuestionLabel";
 import AnswerLabel from "../AnswerLabel";
 
 interface QuestionContentProps {
-  question: Question | TestQuestion;
+  question: Question;
   selectedAnswerId: number;
   selectAnswer: (id: number) => void;
-  isDisplayCorrectAnswer: boolean;
+  isDisplayCorrectAnswer?: boolean;
 }
 
 export default function QuestionContent({

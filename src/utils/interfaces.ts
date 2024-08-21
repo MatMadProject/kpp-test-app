@@ -8,11 +8,6 @@ export interface Question{
     answer5: string
     correctAnswer: string
     image?: string
-}
-
-export interface TestQuestion{
-    id: string
-    question: Question
-    selectedAnswer: string | "0"
-    score: number | "0"
+    selectedAnswer?: string | "0"
+    score?: number | "0"
 }
