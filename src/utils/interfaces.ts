@@ -1,13 +1,13 @@
 export interface Question{
     id: string
-    question: string
-    answer1: string
-    answer2: string
-    answer3: string
-    answer4: string
-    answer5: string
+    question: string | "loading..."
+    answer1: string | "loading..."
+    answer2: string | "loading..."
+    answer3: string | "loading..."
+    answer4: string | "loading..."
+    answer5: string | "loading..."
     correctAnswer: string
     image?: string
     selectedAnswer?: string | "0"
-    score?: number | "0"
+    score?: number | 0
 }

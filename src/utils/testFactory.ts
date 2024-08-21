@@ -14,7 +14,7 @@ export const createTestQuestion = (): Question[] => {
     const test = testQuestions.map((question) => {
         return {
             ...question,
-            selectedAnswer: '0',
+            selectedAnswer: "0",
             score: 0
         }
     });
