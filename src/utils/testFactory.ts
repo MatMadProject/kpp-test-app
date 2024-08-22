@@ -1,22 +1,24 @@
-'use client'
-
 import { Question} from '@/utils/interfaces'; 
 import questions from '@/utils/question.json';
 
-export const createTestQuestion = (): Question[] => {
-    const testQuestions : Question[] = [];
-    while (testQuestions.length < 30) {
-        const randomIndex = Math.floor(Math.random() * questions.length);
-        if (!testQuestions.includes(questions[randomIndex])) {
-            testQuestions.push(questions[randomIndex]);
-        }
+const TEST_SIZE = 30;
+
+export async function createTestQuestion(): Promise<Question[]> {
+    const uniqueNumbersSet = new Set<number>();
+
+    while (uniqueNumbersSet.size !== TEST_SIZE) {
+        const randomNumber = Math.floor(Math.random() * questions.length);
+        uniqueNumbersSet.add(randomNumber)
     }
-    const test = testQuestions.map((question) => {
-        return {
-            ...question,
-            selectedAnswer: "0",
-            score: 0
+
+    return Array.from(uniqueNumbersSet).map(number => questions[number]);
+}
+
+export async function validateAnswers(answers: Record<string, string>) {
+    return Object.entries(answers).reduce((acc, [questionId, answerId]) => {
+        const question = questions.find(el => el.id === questionId);
+        if (question) {
+            return {...acc, [questionId]: {selectedAnswer: answerId, isCorrect: question.correctAnswer === answerId}}
         }
-    });
-    return test;
+    }, {})
 }

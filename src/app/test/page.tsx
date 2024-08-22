@@ -1,57 +1,62 @@
 "use client";
 import NavigationButton from "../components/NavigationButton";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Question } from "@/utils/interfaces";
-import { createTestQuestion } from "@/utils/testFactory";
+import { createTestQuestion, validateAnswers } from "@/utils/testFactory";
 import TestQuestionContent from "../components/TestQuestionContent";
+import { addMinutes, getFormattedTime } from "@/utils/time";
+import Timer from "../components/Timer";
 
 export default function Page() {
-  const [questionId, setQuestionId] = useState(1);
-  const [selectedAnswer, setSelectedAnswer] = useState("0");
+  const [questionIndex, setQuestionIndex] = useState(0);
   const [questions, setQuestions] = useState<Question[]>([]);
-  const [question, setQuestion] = useState<Question>(questions[0]);
-  const [time, setTime] = useState("00:00");
+  const [question, setQuestion] = useState<Question>();
+  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [results, setResults] = useState(null);
+
+  const fetchTest = async () => {
+    const testQuestions = await createTestQuestion();
+    setQuestions(testQuestions);
+    setQuestion(testQuestions[0]);
+  };
 
   useEffect(() => {
-    const testQuestions = createTestQuestion();
-    setQuestions(testQuestions);
-    setQuestion(questions[questionId - 1]);
+    fetchTest();
   }, []);
 
-  const resetAnswer = () => {
-    handleSelectedAnswer("0");
+  const handleSubmit = async () => {
+    const results = await validateAnswers(answers);
+    console.log(results);
   };
+
   const handleNextQuestion = () => {
-    questionId < questions.length
-      ? setQuestionId(questionId + 1)
-      : setQuestionId(1);
-    resetAnswer();
+    const nextIndex =
+      questionIndex === questions.length - 1 ? 0 : questionIndex + 1;
+    setQuestionIndex(nextIndex);
+    setQuestion(questions[nextIndex]);
   };
 
   const handlePreviousQuestion = () => {
-    questionId > 1
-      ? setQuestionId(questionId - 1)
-      : setQuestionId(questions.length);
-    resetAnswer();
+    const prevIndex =
+      questionIndex === 0 ? questions.length - 1 : questionIndex - 1;
+    setQuestionIndex(prevIndex);
+    setQuestion(questions[prevIndex]);
   };
 
-  useEffect(() => {
-    setQuestion(questions[questionId - 1]);
-    // if (question && question.selectedAnswer !== "0") {
-    //   setSelectedAnswer(question.selectedAnswer);
-    // }
-  });
   const handleSelectedAnswer = (answerId: string) => {
-    setSelectedAnswer(answerId);
-    if (answerId !== "0") question.selectedAnswer = answerId;
+    if (question) {
+      setAnswers({ ...answers, [question.id]: answerId });
+    }
   };
+
   return (
     <div className="flex flex-col gap-4  items-center p-4">
+      <button onClick={handleSubmit}>Submit</button>
       {question && (
         <TestQuestionContent
           question={question}
-          selectedAnswerId={selectedAnswer}
+          selectedAnswerId={answers[question.id]}
           selectAnswer={handleSelectedAnswer}
         />
       )}
@@ -61,8 +66,8 @@ export default function Page() {
           value="Poprzednie pytanie"
         />
         <div className="flex flex-col items-center justify-center">
-          <div>Pytanie {questionId} z 30</div>
-          <div>{time}</div>
+          <div>Pytanie {questionIndex + 1} z 30</div>
+          {questions.length !== 0 && <Timer />}
         </div>
         <NavigationButton
           onClick={handleNextQuestion}

@@ -6,14 +6,12 @@ interface TestQuestionContentProps {
   question: Question;
   selectedAnswerId: string;
   selectAnswer: (id: string) => void;
-  isDisplayCorrectAnswer?: boolean;
 }
 
 export default function TestQuestionContent({
   question,
   selectedAnswerId,
   selectAnswer,
-  isDisplayCorrectAnswer,
 }: TestQuestionContentProps) {
   const handleSelectedAnswerId = (answerId: string) => {
     selectAnswer(answerId);

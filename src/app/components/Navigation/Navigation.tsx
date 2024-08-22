@@ -8,10 +8,13 @@ export default function Navigation() {
       >
         Strona Główna
       </a>
-      <div className="opacity-50 flex gap-2 items-center justify-end text-xl p-2 rounded-lg border border-transparent transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30 hover:opacity-100">
+      <a
+        href="/login"
+        className="opacity-50 flex gap-2 items-center justify-end text-xl p-2 rounded-lg border border-transparent transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30 hover:opacity-100"
+      >
         {/* Zaloguj się <FaUserSlash /> */}
         Zaloguj się
-      </div>
+      </a>
     </div>
   );
 }

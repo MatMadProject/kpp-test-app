@@ -8,6 +8,6 @@ export interface Question{
     answer5: string | "loading..."
     correctAnswer: string
     image?: string
-    selectedAnswer?: string | "0"
-    score?: number | 0
+    // selectedAnswer?: string | "0"
+    // score?: number | 0
 }
